@@ -65,6 +65,11 @@ dependencies {
 
     modImplementation "maven.modrinth:lootr:0.7.35.94"
 
+    // Prerequisites
+    modImplementation "curse.maven:framework-549225:7573740"          // Framework (for Furniture Refurbished)
+    modImplementation "curse.maven:geckolib-388172:7553267"           // GeckoLib (for Zombie Extreme)
+    modImplementation "maven.modrinth:curios:5.14.1+1.20.1"          // Curios API (for Apocalypse Now)
+
     // MrCrayfish's Furniture Mod: Refurbished
     modImplementation "curse.maven:refurbished-furniture-897116:7110922"
 
