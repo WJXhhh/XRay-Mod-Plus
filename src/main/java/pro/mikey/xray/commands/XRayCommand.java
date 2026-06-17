@@ -70,26 +70,14 @@ public class XRayCommand {
             "refurbished_furniture:red_kitchen_drawer", "refurbished_furniture:black_kitchen_drawer"
     };
 
-    // Furniture Refurbished - kitchen cabinetry
-    private static final String[] FURNITURE_KITCHEN_CABINETS = {
-            "refurbished_furniture:oak_kitchen_cabinetry", "refurbished_furniture:spruce_kitchen_cabinetry",
-            "refurbished_furniture:birch_kitchen_cabinetry", "refurbished_furniture:jungle_kitchen_cabinetry",
-            "refurbished_furniture:acacia_kitchen_cabinetry", "refurbished_furniture:dark_oak_kitchen_cabinetry",
-            "refurbished_furniture:crimson_kitchen_cabinetry", "refurbished_furniture:warped_kitchen_cabinetry",
-            "refurbished_furniture:mangrove_kitchen_cabinetry", "refurbished_furniture:cherry_kitchen_cabinetry",
-            "refurbished_furniture:white_kitchen_cabinetry", "refurbished_furniture:orange_kitchen_cabinetry",
-            "refurbished_furniture:magenta_kitchen_cabinetry", "refurbished_furniture:light_blue_kitchen_cabinetry",
-            "refurbished_furniture:yellow_kitchen_cabinetry", "refurbished_furniture:lime_kitchen_cabinetry",
-            "refurbished_furniture:pink_kitchen_cabinetry", "refurbished_furniture:gray_kitchen_cabinetry",
-            "refurbished_furniture:light_gray_kitchen_cabinetry", "refurbished_furniture:cyan_kitchen_cabinetry",
-            "refurbished_furniture:purple_kitchen_cabinetry", "refurbished_furniture:blue_kitchen_cabinetry",
-            "refurbished_furniture:brown_kitchen_cabinetry", "refurbished_furniture:green_kitchen_cabinetry",
-            "refurbished_furniture:red_kitchen_cabinetry", "refurbished_furniture:black_kitchen_cabinetry"
-    };
-
     // Furniture Refurbished - stoves
     private static final String[] FURNITURE_STOVES = {
             "refurbished_furniture:dark_stove", "refurbished_furniture:light_stove"
+    };
+
+    // Furniture Refurbished - freezers
+    private static final String[] FURNITURE_FREEZERS = {
+            "refurbished_furniture:dark_freezer", "refurbished_furniture:light_freezer"
     };
 
     // Furniture Refurbished - mail boxes
@@ -264,9 +252,9 @@ public class XRayCommand {
         added += addBlocks(FURNITURE_DRAWERS, FURNITURE_COLOR);
         added += addBlocks(FURNITURE_CABINETS, FURNITURE_COLOR);
         added += addBlocks(FURNITURE_KITCHEN_DRAWERS, FURNITURE_COLOR);
-        added += addBlocks(FURNITURE_KITCHEN_CABINETS, FURNITURE_COLOR);
         added += addBlocks(FURNITURE_STOVES, FURNITURE_COLOR);
         added += addBlocks(FURNITURE_MAILBOXES, FURNITURE_COLOR);
+        added += addBlocks(FURNITURE_FREEZERS, FURNITURE_COLOR);
 
         // Doomsday Decoration
         added += addBlocks(DOOMSDAY_LUGGAGE, DOOMSDAY_COLOR);
@@ -290,7 +278,7 @@ public class XRayCommand {
         }
 
         int totalBlocks = FURNITURE_DRAWERS.length + FURNITURE_CABINETS.length + FURNITURE_KITCHEN_DRAWERS.length
-                + FURNITURE_KITCHEN_CABINETS.length + FURNITURE_STOVES.length + FURNITURE_MAILBOXES.length
+                + FURNITURE_STOVES.length + FURNITURE_MAILBOXES.length + FURNITURE_FREEZERS.length
                 + DOOMSDAY_LUGGAGE.length + DOOMSDAY_SHELVES.length + DOOMSDAY_TRASH.length + DOOMSDAY_BODIES.length
                 + ZOMBIE_TRASH.length + APOCALYPSE_WASHER.length;
         skipped = totalBlocks - added;
