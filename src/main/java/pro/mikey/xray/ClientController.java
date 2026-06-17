@@ -13,6 +13,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import pro.mikey.xray.commands.XRayCommand;
 import pro.mikey.xray.keybinding.KeyBindings;
 import pro.mikey.xray.store.BlockStore;
 import pro.mikey.xray.store.DiscoveryStorage;
@@ -45,6 +46,8 @@ public class ClientController {
         MinecraftForge.EVENT_BUS.addListener(Events::tickEnd);
         MinecraftForge.EVENT_BUS.addListener(Events::onWorldRenderLast);
 
+        // Commands
+        MinecraftForge.EVENT_BUS.addListener(XRayCommand::onRegisterCommands);
     }
 
     private static void onSetup(final FMLCommonSetupEvent event) {

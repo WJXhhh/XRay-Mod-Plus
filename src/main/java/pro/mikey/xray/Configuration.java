@@ -16,6 +16,7 @@ public class Configuration
     public static class General {
         public final ForgeConfigSpec.BooleanValue showOverlay;
         public final ForgeConfigSpec.DoubleValue outlineThickness;
+        public final ForgeConfigSpec.BooleanValue lootrFilter;
 
         General() {
             BUILDER.push("general");
@@ -28,6 +29,10 @@ public class Configuration
                     .comment("This allows you to set your own outline thickness, I find that 1.0 is perfect but others my",
                             "think differently. The max is 5.0")
                     .defineInRange("outlineThickness", 1.0, 1.0, 5.0);
+
+            lootrFilter = BUILDER
+                    .comment("When enabled, LootR containers that have already been opened by you will be hidden from XRay")
+                    .define("lootrFilter", true);
 
             BUILDER.pop();
         }

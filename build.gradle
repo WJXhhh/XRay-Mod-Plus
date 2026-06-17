@@ -24,6 +24,15 @@ loom {
 }
 
 repositories {
+    maven {
+        url "https://maven.neoforged.net/releases"
+    }
+    maven {
+        url "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 def replaceProperties = [
@@ -47,6 +56,8 @@ dependencies {
     mappings loom.officialMojangMappings()
 
     forge "net.neoforged:forge:${project.minecraft_version}-${project.forge_version}"
+
+    modCompileOnly "maven.modrinth:lootr:0.7.35.94"
 }
 
 repositories {

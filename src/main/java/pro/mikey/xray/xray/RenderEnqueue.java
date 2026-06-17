@@ -6,18 +6,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
+import pro.mikey.xray.Configuration;
 import pro.mikey.xray.XRay;
 import pro.mikey.xray.utils.BlockData;
 import pro.mikey.xray.utils.RenderBlockProps;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -86,35 +84,26 @@ public class RenderEnqueue {
 							if( dataWithUUID.getKey() == null || !dataWithUUID.getKey().isDrawing() ) // fail safe
 								continue;
 
-                            XRay.logger.info("Checking block " + block.toString());
-
-                            if(block.getNamespace().equals("lootr")){
-                                XRay.logger.info("Checked LootR");
+                            if(Configuration.general.lootrFilter.get() && block.getNamespace().equals("lootr")){
                                 BlockEntity tileEntity = world.getBlockEntity(pos);
                                 if (tileEntity != null){
-                                    if (tileEntity instanceof BlockEntity){
-                                        XRay.logger.info("Checked Tile");
-                                        boolean flag = false;
-                                        Method[] methods = tileEntity.getClass().getDeclaredMethods();
-                                        for (Method method : methods) {
-                                            if (method.getName().equals("getOpeners")){
-                                                try {
-                                                    Set<UUID> set = (Set<UUID>) method.invoke(tileEntity);
-                                                    if (set.contains(player.getUUID())){
-                                                        XRay.logger.info("Found Skip");
-                                                        flag = true;
-
-                                                    }
-                                                } catch (IllegalAccessException | InvocationTargetException e) {
-                                                    throw new RuntimeException(e);
+                                    boolean opened = false;
+                                    Method[] methods = tileEntity.getClass().getDeclaredMethods();
+                                    for (Method method : methods) {
+                                        if (method.getName().equals("getOpeners")){
+                                            try {
+                                                Set<UUID> set = (Set<UUID>) method.invoke(tileEntity);
+                                                if (set.contains(player.getUUID())){
+                                                    opened = true;
                                                 }
-                                                break;
+                                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                                XRay.logger.warn("Failed to check LootR openers", e);
                                             }
+                                            break;
                                         }
-                                        if (flag){
-                                            XRay.logger.info("Has Skip");
-                                            continue;
-                                        }
+                                    }
+                                    if (opened){
+                                        continue;
                                     }
                                 }
                             }
