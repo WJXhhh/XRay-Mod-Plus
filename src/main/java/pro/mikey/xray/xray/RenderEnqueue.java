@@ -109,11 +109,18 @@ public class RenderEnqueue {
                                 }
                             }
 
-                            // Filter empty containers (skip RandomizableContainerBlockEntity - loot generated on first open)
+                            // Filter empty containers (skip if has ungenerated loot table)
                             if(Configuration.general.filterEmptyContainers.get()){
                                 BlockEntity tileEntity = world.getBlockEntity(pos);
-                                if (tileEntity instanceof Container container && container.isEmpty()
-                                        && !(tileEntity instanceof net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity)){
+                                if (tileEntity instanceof Container container && container.isEmpty()){
+                                    // Don't filter RandomizableContainerBlockEntity that still has loot table (not opened yet)
+                                    if (tileEntity instanceof net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity){
+                                        try {
+                                            java.lang.reflect.Field lootTableField = net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity.class.getDeclaredField("lootTable");
+                                            lootTableField.setAccessible(true);
+                                            if (lootTableField.get(tileEntity) != null) continue; // has ungenerated loot
+                                        } catch (Exception ignored) {}
+                                    }
                                     continue;
                                 }
                             }
