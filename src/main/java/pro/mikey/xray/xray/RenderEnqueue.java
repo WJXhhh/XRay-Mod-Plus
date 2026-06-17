@@ -109,10 +109,11 @@ public class RenderEnqueue {
                                 }
                             }
 
-                            // Filter empty containers
+                            // Filter empty containers (skip RandomizableContainerBlockEntity - loot generated on first open)
                             if(Configuration.general.filterEmptyContainers.get()){
                                 BlockEntity tileEntity = world.getBlockEntity(pos);
-                                if (tileEntity instanceof Container container && container.isEmpty()){
+                                if (tileEntity instanceof Container container && container.isEmpty()
+                                        && !(tileEntity instanceof net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity)){
                                     continue;
                                 }
                             }
