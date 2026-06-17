@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import pro.mikey.xray.ClientController;
+import pro.mikey.xray.Configuration;
 import pro.mikey.xray.utils.BlockData;
 import pro.mikey.xray.xray.Controller;
 
@@ -37,7 +38,48 @@ public class XRayCommand {
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("xray")
                 .then(Commands.literal("addLootRBlock")
-                        .executes(ctx -> addLootRBlocks()));
+                        .executes(ctx -> addLootRBlocks()))
+                .then(Commands.literal("filter")
+                        .then(Commands.literal("lootr")
+                                .executes(ctx -> toggleFilter("lootr")))
+                        .then(Commands.literal("empty")
+                                .executes(ctx -> toggleFilter("empty"))));
+    }
+
+    private static int toggleFilter(String filterName) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null)
+            return 0;
+
+        boolean newValue;
+        String displayName;
+
+        switch (filterName) {
+            case "lootr" -> {
+                newValue = !Configuration.general.lootrFilter.get();
+                Configuration.general.lootrFilter.set(newValue);
+                displayName = "LootR Filter";
+            }
+            case "empty" -> {
+                newValue = !Configuration.general.filterEmptyContainers.get();
+                Configuration.general.filterEmptyContainers.set(newValue);
+                displayName = "Empty Container Filter";
+            }
+            default -> { return 0; }
+        }
+
+        String status = newValue ? "§aON" : "§cOFF";
+        mc.player.displayClientMessage(
+                Component.literal("§6[XRay] §f" + displayName + ": " + status),
+                false
+        );
+
+        // Refresh XRay if active
+        if (Controller.isXRayActive()) {
+            Controller.requestBlockFinder(true);
+        }
+
+        return Command.SINGLE_SUCCESS;
     }
 
     private static int addLootRBlocks() {
