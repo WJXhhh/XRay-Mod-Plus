@@ -33,6 +33,12 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 def replaceProperties = [
@@ -57,7 +63,19 @@ dependencies {
 
     forge "net.neoforged:forge:${project.minecraft_version}-${project.forge_version}"
 
-    modCompileOnly "maven.modrinth:lootr:0.7.35.94"
+    modImplementation "maven.modrinth:lootr:0.7.35.94"
+
+    // MrCrayfish's Furniture Mod: Refurbished
+    modImplementation "curse.maven:refurbished-furniture-897116:7110922"
+
+    // Doomsday Decoration
+    modImplementation "curse.maven:doomsday-decoration-1180487:6781856"
+
+    // Zombie Extreme
+    modImplementation "curse.maven:zombie-extreme-392809:7014500"
+
+    // Apocalypse Now
+    modImplementation "maven.modrinth:apocalypse-now:3.0.5"
 }
 
 repositories {
