@@ -28,6 +28,9 @@ repositories {
         url "https://maven.neoforged.net/releases"
     }
     maven {
+        url "https://maven.minecraftforge.net"
+    }
+    maven {
         url "https://api.modrinth.com/maven"
         content {
             includeGroup "maven.modrinth"
@@ -61,7 +64,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
 
-    forge "net.neoforged:forge:${project.minecraft_version}-${project.forge_version}"
+    forge "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
     modImplementation "maven.modrinth:lootr:0.7.35.94"
 
