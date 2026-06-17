@@ -27,3 +27,7 @@ CREDITS-fml.txt
 classes/
 .DS_Store
 /logs/
+*.log
+
+# local scripts
+claude_mimo.ps1
