@@ -41,9 +41,12 @@ public class ScrollingList<E extends AbstractSelectionList.Entry<E>> extends Abs
         return (this.x0 + this.width) - 6;
     }
 
-    @Override
     public int getRowWidth() {
         return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 
     @Override
