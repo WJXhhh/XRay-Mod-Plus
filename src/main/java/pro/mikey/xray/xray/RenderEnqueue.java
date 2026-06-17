@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.Container;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -105,6 +106,14 @@ public class RenderEnqueue {
                                     if (opened){
                                         continue;
                                     }
+                                }
+                            }
+
+                            // Filter empty containers
+                            if(Configuration.general.filterEmptyContainers.get()){
+                                BlockEntity tileEntity = world.getBlockEntity(pos);
+                                if (tileEntity instanceof Container container && container.isEmpty()){
+                                    continue;
                                 }
                             }
 

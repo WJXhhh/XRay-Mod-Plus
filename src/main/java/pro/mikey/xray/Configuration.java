@@ -17,6 +17,7 @@ public class Configuration
         public final ForgeConfigSpec.BooleanValue showOverlay;
         public final ForgeConfigSpec.DoubleValue outlineThickness;
         public final ForgeConfigSpec.BooleanValue lootrFilter;
+        public final ForgeConfigSpec.BooleanValue filterEmptyContainers;
 
         General() {
             BUILDER.push("general");
@@ -33,6 +34,10 @@ public class Configuration
             lootrFilter = BUILDER
                     .comment("When enabled, LootR containers that have already been opened by you will be hidden from XRay")
                     .define("lootrFilter", true);
+
+            filterEmptyContainers = BUILDER
+                    .comment("When enabled, empty containers (chests, drawers, etc.) will be hidden from XRay")
+                    .define("filterEmptyContainers", true);
 
             BUILDER.pop();
         }
